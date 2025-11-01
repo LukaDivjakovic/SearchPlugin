@@ -1,5 +1,8 @@
 package lukaluka.searchplugin.forms;
 
+import com.intellij.ui.components.JBScrollPane;
+import com.intellij.util.ui.JBUI;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,6 +12,7 @@ public class FileSearch {
     private JTextField stringToSearchField;
     private JButton startSearchButton;
     private JButton cancelSearchButton;
+    private JTextArea resultsArea;
 
     public FileSearch() {
         buildUI();
@@ -16,10 +20,10 @@ public class FileSearch {
 
     private void buildUI() {
         contentPane = new JPanel(new GridBagLayout());
-        contentPane.setPreferredSize(new Dimension(350, 150));
+        contentPane.setPreferredSize(new Dimension(500, 300));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(4, 4, 4, 4);
+        gbc.insets = JBUI.insets(4);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 0;
 
@@ -50,9 +54,41 @@ public class FileSearch {
         cancelSearchButton = new JButton("Cancel");
         gbc.gridx = 3; gbc.gridy = 2; gbc.gridwidth = 1; gbc.weightx = 0;
         contentPane.add(cancelSearchButton, gbc);
+
+        // Row 3: Results area spanning all columns
+        resultsArea = new JTextArea();
+        resultsArea.setEditable(false);
+        JScrollPane scrollPane = new JBScrollPane(resultsArea);
+        gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 4; gbc.weightx = 1.0; gbc.weighty = 1.0; gbc.fill = GridBagConstraints.BOTH;
+        contentPane.add(scrollPane, gbc);
     }
 
     public JPanel getContentPane() {
         return contentPane;
+    }
+
+    public JButton getStartSearchButton() {
+        return startSearchButton;
+    }
+
+    public JButton getCancelSearchButton() {
+        return cancelSearchButton;
+    }
+
+    public String getDirectoryPath() {
+        return directoryPathField.getText();
+    }
+
+    public String getStringToSearch() {
+        return stringToSearchField.getText();
+    }
+
+    public void clearResults() {
+        resultsArea.setText("");
+    }
+
+    public void appendResultLine(String line) {
+        resultsArea.append(line + "\n");
+        resultsArea.setCaretPosition(resultsArea.getDocument().getLength());
     }
 }
