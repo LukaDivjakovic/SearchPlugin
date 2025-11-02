@@ -28,7 +28,11 @@ data class TextOccurrence(
     override val file: Path,
     override val line: Int,
     override val offset: Int
-) : Occurrence
+) : Occurrence {
+    override fun toString(): String {
+        return "$file: $line:$offset"
+    }
+}
 
 //@OptIn(ExperimentalCoroutinesApi::class)
 fun searchForTextOccurrences(

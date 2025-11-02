@@ -55,7 +55,7 @@ class SearchToolWindowFactory : ToolWindowFactory, DumbAware {
             currentJob = scope.launch {
                 try {
                     searchForTextOccurrences(query, path).collect { occ ->
-                        val line = "${'$'}{occ.file}: line ${'$'}{occ.line}, col ${'$'}{occ.offset}"
+                        val line = occ.toString()
                         SwingUtilities.invokeLater { form.appendResultLine(line) }
                     }
                 } catch (_: Exception) {
