@@ -1,8 +1,7 @@
-package lukaluka.searchplugin.toolwindow
+package toolwindow
 
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.Disposable
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
@@ -11,10 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import lukaluka.searchplugin.forms.FileSearch
-import searchLogic.searchForTextOccurrences
+import searchForTextOccurrences
 import java.nio.file.Paths
 import javax.swing.SwingUtilities
 
@@ -27,7 +25,7 @@ class SearchToolWindowFactory : ToolWindowFactory, DumbAware {
 
         // Coroutine scope tied to the content lifecycle
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        content.setDisposer(Disposable { scope.cancel() })
+        content.setDisposer { scope.cancel() }
 
         var currentJob: Job? = null
 
