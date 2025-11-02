@@ -1,3 +1,5 @@
+package searchLogic
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
@@ -82,7 +84,7 @@ private fun searchInFile(file: Path, searchString: String): List<Occurrence> {
                 }
             }
         }
-    } catch (e: Exception) {
+    } catch (_: Exception) {
     }
 
     return occurrences

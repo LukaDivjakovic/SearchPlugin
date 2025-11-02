@@ -12,7 +12,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import lukaluka.searchplugin.forms.FileSearch
-import searchForTextOccurrences
+import searchLogic.searchForTextOccurrences
 import java.nio.file.Paths
 import javax.swing.SwingUtilities
 
