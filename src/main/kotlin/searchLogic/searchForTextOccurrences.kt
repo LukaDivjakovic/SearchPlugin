@@ -2,6 +2,8 @@ package searchLogic
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
@@ -54,7 +56,7 @@ fun searchForTextOccurrences(
                 }
             }
         }
-    }
+    }.buffer(Channel.RENDEZVOUS)
 }
 
 private fun getAllRegularFiles(directory: Path): List<Path> = try {
